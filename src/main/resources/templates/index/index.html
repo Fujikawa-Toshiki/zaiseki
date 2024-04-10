@@ -1,34 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<!--	<html xmlns:th="http://www.thymeleaf.org"-->
+<!--		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"-->
+<!--		layout:decorate="~{layout/layout}">-->
 <head>
-    <meta charset="utf-8">
-    <title>ナンバーワンソリューションズ</title>
-    <link th:href="@{/css/style.css}" rel="stylesheet">
+	<meta charset="utf-8">
+	<title>ナンバーワンソリューションズ</title>
+	<link th:href="@{/css/style.css}" rel="stylesheet">
 </head>
 <body>
-	<div id="header">
-	    <h1>
-	        <a th:href="@{/admin/}" th:if="${user != null && user.auth}">在席管理アプリ</a>
-	        <a th:href="@{/}" th:unless="${user != null && user.auth}">在席管理アプリ</a>
-	    </h1>
-	</div>
+	<div layout:replace="~{layout/header::header}"></div>
+
 	<div id="nav">
-	    <p th:if="${user != null && user.auth}">
-	        <span th:text="${name}"></span>さん
-	        <a th:href="@{/admin/}">ホーム</a>
-	        <a th:href="@{/admin/user/update}">ユーザ情報</a>
-	        <a th:href="@{/admin/user/logout}">ログアウト</a>
-	    </p>
-	    <p th:unless="${user != null && user.auth}">
-	        <a th:href="@{/user/login}">ログイン</a>
-	        <a th:href="@{/user/register}">新規ユーザ登録</a>
-	    </p>
+		<p th:if="${user != null && user.auth}">
+			<span th:text="${name}"></span>さん
+			<a th:href="@{/admin/}">ホーム</a>
+			<a th:href="@{/admin/user/update}">ユーザ情報</a>
+			<a th:href="@{/admin/user/logout}">ログアウト</a>
+		</p>
+		<p th:unless="${user != null && user.auth}">
+			<a th:href="@{/user/login}">ログイン</a>
+			<a th:href="@{/user/register}">新規ユーザ登録</a>
+		</p>
 	</div>
 
-	<hr />
-	<div id="footer">
-	    <div>All rights reserved by Number One Solutions</div>
-	    <div><a href="http://no1s.biz/">会社</a></div>
-	</div>
+	<div layout:replace="~{layout/footer::footer}"></div>
 </body>
 </html>
