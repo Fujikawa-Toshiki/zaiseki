@@ -5,7 +5,7 @@
   </head>
   <body>
     <div layout:fragment="content">
-      <h1>ダッシュボード</h1>
+      <h2>ダッシュボード</h2>
       <ul th:each="link: ${links}" th:object="${link}" class="list-group">
         <li>
           <a th:href="*{key}" th:text="*{value}" class="list-group-item list-group-item-action"></a>

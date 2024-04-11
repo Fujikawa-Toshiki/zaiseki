@@ -5,4 +5,16 @@
 			<a th:href="@{/}" sec:authorize="!authenticated">在席管理アプリ</a>
 		</h1>
 	</div>
+	<div id="nav">
+		<p sec:authorize="authenticated">
+			<span sec:authentication="name" class="me-1"></span>さん
+			<a th:href="@{/admin/}">ホーム</a>
+			<a th:href="@{/admin/user/edit}">ユーザ編集</a>
+			<a th:href="@{/admin/user/logout}">ログアウト</a>
+		</p>
+		<p sec:authorize="!authenticated">
+			<a th:href="@{/user/login}">ログイン</a>
+			<a th:href="@{/user/register}">新規ユーザ登録</a>
+		</p>
+	</div>
 </nav>
