@@ -27,20 +27,20 @@ public class SecurityConfig {
 			http.authorizeHttpRequests(authorize ->
 				authorize
 					.requestMatchers("/webjars/**", "/css/**", "/js/**").permitAll()
-					.requestMatchers("/", "/admin/users/logout", "/user/register", "/error").permitAll()
+					.requestMatchers("/", "/user/login", "/admin/user/logout", "/user/register", "/error").permitAll()
 					.anyRequest().authenticated()
 			)
 			.formLogin(form ->
 				form
-					.loginProcessingUrl("/users/login")
-					.loginPage("/users/login")
+					.loginProcessingUrl("/user/login")
+					.loginPage("/user/login")
 					.defaultSuccessUrl("/admin")
-					.failureUrl("/users/login?error")
+					.failureUrl("/user/login?error")
 			)
 			.logout(logout ->
 				logout
-					.logoutUrl("/admin/users/logout")
-					.logoutSuccessUrl("/users/login?logout")
+					.logoutUrl("/admin/user/logout")
+					.logoutSuccessUrl("/user/login?logout")
 					.deleteCookies("JSESSIONID")
 			)
 			.exceptionHandling(exceptions ->

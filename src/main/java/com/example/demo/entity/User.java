@@ -68,6 +68,11 @@ public class User extends AbstractEntity implements UserDetails {
 		return this.userName;
 	}
 	
+	// lombokが認識しないため手動で作成
+	public String getUserName() {
+		return this.userName;
+	}
+	
 	// パスワードを返却するメソッド
 	@Override
 	public String getPassword() {

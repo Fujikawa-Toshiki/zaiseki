@@ -14,19 +14,6 @@
 
 	<div layout:fragment="content"></div>
 
-<!--	<div id="nav">-->
-<!--		<p th:if="${user != null && user.auth}">-->
-<!--			<span th:text="${name}"></span>さん-->
-<!--			<a th:href="@{/admin/}">ホーム</a>-->
-<!--			<a th:href="@{/admin/user/update}">ユーザ情報</a>-->
-<!--			<a th:href="@{/admin/user/logout}">ログアウト</a>-->
-<!--		</p>-->
-<!--		<p th:unless="${user != null && user.auth}">-->
-<!--			<a th:href="@{/user/login}">ログイン</a>-->
-<!--			<a th:href="@{/user/register}">新規ユーザ登録</a>-->
-<!--		</p>-->
-<!--	</div>-->
-
 	<div layout:replace="~{layout/footer::footer}"></div>
 </body>
 </html>

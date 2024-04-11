@@ -71,6 +71,15 @@ public class UserController {
 		ra.addFlashAttribute("flash", flash);
 		return "redirect:/user/login";
 	}
+	
+	/*
+	 * ログイン画面表示
+	 */
+	@GetMapping(value = "/login")
+	public String loginForm(User user, Model model) {
+		return "user/login";
+	}
+
 
 
 }
