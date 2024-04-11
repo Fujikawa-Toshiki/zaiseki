@@ -37,7 +37,7 @@ public class User extends AbstractEntity implements UserDetails {
 
 	@Column(length = 255, nullable = false, unique = true)
 	@NotEmpty(groups = { Create.class, Update.class }, message = "ユーザ名は必須項目です")
-	private String username;
+	private String userName;
 
 	@Column(length = 255, nullable = false)
 	@NotEmpty(groups = { Create.class }, message = "パスワードは必須項目です")
@@ -65,7 +65,7 @@ public class User extends AbstractEntity implements UserDetails {
 	// ユーザー名を返却するメソッド
 	@Override
 	public String getUsername() {
-		return this.username;
+		return this.userName;
 	}
 	
 	// パスワードを返却するメソッド

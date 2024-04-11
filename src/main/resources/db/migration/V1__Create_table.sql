@@ -1,5 +1,3 @@
--- CREATE DATABASE zaiseki DEFAULT CHARACTER SET utf8;
-
 USE zaiseki;
 
 DROP TABLE IF EXISTS message;
@@ -35,7 +33,9 @@ CREATE TABLE user (
   user_name varchar(255) NOT NULL,
   password varchar(255) NOT NULL,
   name varchar(255) NOT NULL,
-  created_at datetime DEFAULT NULL,
+  modified_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  
   PRIMARY KEY (id),
   UNIQUE KEY user_name_index (user_name)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

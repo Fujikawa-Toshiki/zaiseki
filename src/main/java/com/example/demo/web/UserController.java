@@ -29,11 +29,20 @@ public class UserController {
   	/*
 	 * 新規作成画面表示
 	 */
+//	@GetMapping(value = "/register")
+//	public String register() {
+//		return "user/register";
+//	}
+  
+  	/*
+	 * 新規作成画面表示
+	 */
 	@GetMapping(value = "/register")
-	public String register() {
+	public String form(User user, Model model) {
+		model.addAttribute("user", user);
 		return "user/register";
 	}
-	
+
 	/*
 	 * 新規登録
 	 */

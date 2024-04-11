@@ -1,8 +1,8 @@
 <nav layout:fragment="header" class="header navbar navbar-fixed-top">
 	<div id="header">
 		<h1>
-			<a th:href="@{/admin/}" th:if="${user != null && user.auth}">在席管理アプリ</a>
-			<a th:href="@{/}" th:unless="${user != null && user.auth}">在席管理アプリ</a>
+			<a th:href="@{/admin/}" sec:authorize="authenticated">在席管理アプリ</a>
+			<a th:href="@{/}" sec:authorize="!authenticated">在席管理アプリ</a>
 		</h1>
 	</div>
 </nav>

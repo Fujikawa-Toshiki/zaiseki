@@ -41,12 +41,12 @@ public class UserService implements BaseService<User> {
 	}
 
 	public User findByUsername(String user_name) throws DataNotFoundException {
-		return dao.findByUsername(user_name);
+		return dao.findByUserName(user_name);
 	}
 
 	public User auth(User user) {
 		try {
-			User foundUser = dao.findByUsername(user.getUsername());
+			User foundUser = dao.findByUserName(user.getUsername());
 			if (PasswordHasher.matches(user.getPassword(), foundUser.getPassword())) {
 				foundUser.setAuth(true);
 				return foundUser;
@@ -59,7 +59,7 @@ public class UserService implements BaseService<User> {
 
 	public boolean isUnique(String user_name) {
 		try {
-			dao.findByUsername(user_name);
+			dao.findByUserName(user_name);
 			return false;
 		} catch (DataNotFoundException e) {
 			return true;
