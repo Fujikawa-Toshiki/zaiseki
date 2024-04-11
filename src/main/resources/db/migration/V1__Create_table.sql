@@ -17,6 +17,7 @@ CREATE TABLE message (
 
 DROP TABLE IF EXISTS status;
 CREATE TABLE status (
+  id int(11) NOT NULL AUTO_INCREMENT,
   user_id int(11) NOT NULL AUTO_INCREMENT,
   present int(11) NOT NULL DEFAULT '0',
   destination varchar(255) NOT NULL DEFAULT '',
