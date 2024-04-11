@@ -10,7 +10,7 @@
 			<span sec:authentication="name" class="me-1"></span>さん
 			<a th:href="@{/admin/}">ホーム</a>
 			<a th:href="@{/admin/user/edit}">ユーザ編集</a>
-			<a th:href="@{/admin/user/logout}">ログアウト</a>
+<!--			<a th:href="@{/admin/user/logout}">ログアウト</a>-->
 		</p>
 		<p sec:authorize="!authenticated">
 			<a th:href="@{/user/login}">ログイン</a>
