@@ -29,22 +29,22 @@ public class Status extends AbstractEntity {
 	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@OneToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+	@JoinColumn(name = "user_id")
+	private User user;
 
 	@Column(nullable = false)
 	@NotNull(message = "在籍状況が未入力です")
 	@Min(value = 0, message = "在籍状況は0以上の整数を入力してください")
 	private Integer present;
-	
+
 	@Column(length = 255, nullable = false)
 	private String destination;
-	
+
 	@Column(length = 255, nullable = false)
 	private String reachTime;
-	
+
 	@Column(length = 255, nullable = false)
 	private String memo;
 
