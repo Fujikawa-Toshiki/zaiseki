@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.common.DataNotFoundException;
-import com.example.demo.dao.BaseDao;
+import com.example.demo.dao.StatusDao;
 import com.example.demo.entity.Status;
 
 @Service
 public class StatusService implements BaseService<Status> {
 	@Autowired
-	private BaseDao<Status> dao;
+	private StatusDao dao;
 
 	@Override
 	public List<Status> findAll() {
@@ -25,12 +25,22 @@ public class StatusService implements BaseService<Status> {
 	}
 
 	@Override
-	public void save(Status orderDetail) {
-		dao.save(orderDetail);
+	public void save(Status status) {
+		dao.save(status);
 	}
 
 	@Override
 	public void deleteById(Integer id) {
 		dao.deleteById(id);
+	}
+	
+	public Status findByUserId(Integer userId) throws DataNotFoundException {
+		return dao.findByUserId(userId);
+	}
+
+	@Override
+	public Status findByUsername(String userName) throws DataNotFoundException {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
 	}
 }

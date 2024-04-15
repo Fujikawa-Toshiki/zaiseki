@@ -3,7 +3,7 @@ USE zaiseki;
 DROP TABLE IF EXISTS user;
 CREATE TABLE user (
   id int(11) NOT NULL AUTO_INCREMENT,
-  user_name varchar(255) NOT NULL,
+  user_name varchar(255) NOT NULL UNIQUE,
   password varchar(255) NOT NULL,
   name varchar(255) NOT NULL,
   modified_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,

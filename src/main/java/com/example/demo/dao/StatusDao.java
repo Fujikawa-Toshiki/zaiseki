@@ -38,4 +38,8 @@ public class StatusDao implements BaseDao<Status> {
 			System.out.println("no data");
 		}
 	}
+	
+	public Status findByUserId(Integer userId) {
+		return repository.findByUserId(userId);
+	}
 }

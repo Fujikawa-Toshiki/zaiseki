@@ -6,9 +6,8 @@
   <body>
     <div layout:fragment="content">
       <h2>在籍情報一覧</h2>
-	  
-	  <a th:href="@{/status/edit}">離席メモを更新する</a>
-	  <a th:href="@{/status/}">伝言メモを確認する</a>
+<!--	  <a th:href="@{/admin/status/edit/{id}(id={id})}">離席メモを更新する</a>-->
+	  <a th:href="@{/admin/message/}">伝言メモを確認する</a>
 	  
       <table class="table table-striped mt-4">
         <thead class="bg-primary text-white">
