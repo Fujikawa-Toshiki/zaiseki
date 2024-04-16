@@ -34,13 +34,12 @@ public class StatusService implements BaseService<Status> {
 		dao.deleteById(id);
 	}
 	
-	public Status findByUserId(Integer userId) throws DataNotFoundException {
+//	public Status findByUserId(Integer userId) throws DataNotFoundException {
+//		return dao.findByUserId(userId);
+//	}
+	
+	public List<Status> findByUserId(Integer userId) {
 		return dao.findByUserId(userId);
 	}
 
-	@Override
-	public Status findByUsername(String userName) throws DataNotFoundException {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
-	}
 }

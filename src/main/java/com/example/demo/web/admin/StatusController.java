@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.demo.common.CustomUser;
 import com.example.demo.common.FlashData;
-import com.example.demo.common.UserImpl;
 import com.example.demo.entity.Status;
 import com.example.demo.entity.User;
 import com.example.demo.service.StatusService;
@@ -35,16 +35,19 @@ public class StatusController {
 	 * 一覧表示
 	 */
 	@GetMapping(path = {"", "/"})
-	public String list(Model model, @AuthenticationPrincipal UserImpl user) {
+	public String list(Model model, @AuthenticationPrincipal CustomUser user) {
 		try {
 			// ログインユーザのStatus情報を取得
 			User loginUser = user.getUser();
-			Status myStatus = statusService.findByUserId(loginUser.getId());
+			List<Status> statusList = statusService.findByUserId(loginUser.getId());
 			
 			// 全件取得
 			List<Status> status = statusService.findAll();
 			model.addAttribute("status", status);
-			model.addAttribute("id", myStatus.getId());
+//			model.addAttribute("id", myStatus.getId());
+//			model.addAttribute("statusList", statusService.findByUserId(loginUser.getId()));
+			model.addAttribute("statusList", statusList);
+			model.addAttribute("user", loginUser);
 		} catch (Exception e) {
 			
 		}
@@ -55,7 +58,7 @@ public class StatusController {
 	 * 編集画面表示
 	 */
 	@GetMapping(value = "/edit/{id}")
-	public String edit(@PathVariable Integer id, Model model, @AuthenticationPrincipal UserImpl user, RedirectAttributes ra) {
+	public String edit(@PathVariable Integer id, Model model, @AuthenticationPrincipal CustomUser user, RedirectAttributes ra) {
 		try {
 			User loginUser = user.getUser();
 			Status status = statusService.findById(id);

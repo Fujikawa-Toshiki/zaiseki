@@ -39,7 +39,13 @@ public class StatusDao implements BaseDao<Status> {
 		}
 	}
 	
-	public Status findByUserId(Integer userId) {
-		return repository.findByUserId(userId);
+//	public Status findByUserId(Integer userId) {
+//		return repository.findByUserId(userId);
+//	}
+	
+	public List<Status> findByUserId(Integer userId) {
+		System.out.println(userId);
+		return this.repository.findByUserId(userId);
 	}
+
 }

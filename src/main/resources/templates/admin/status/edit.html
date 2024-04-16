@@ -19,11 +19,12 @@
 				<tr>
 					<th>user_id</th>
 <!--					<td th:text="*{userId}"></td>-->
-<td><input type="text" id="userId" th:field="*{userId}"></td>
+<input type="hidden" name="userId"　th:value="*{userId}">
+<!--<td><input type="text" id="userId" th:field="*{userId}"></td>-->
 				</tr>
 				<tr>
 					<th>名前</th>
-					<td th:text="${user.name}"></td>
+<!--					<td th:text="${user.name}"></td>-->
 				</tr>
 				<tr>
 					<th>在席状況</th>

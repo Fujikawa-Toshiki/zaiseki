@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,11 +10,14 @@ import com.example.demo.common.PasswordHasher;
 import com.example.demo.common.ValidationGroups.Create;
 import com.example.demo.common.ValidationGroups.Update;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotEmpty;
@@ -22,6 +26,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -46,6 +51,9 @@ public class User extends AbstractEntity implements UserDetails {
 	@Column(length = 255, nullable = false)
 	private String name;
 
+	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	List<Status> status;
+	
 	@Transient
 	private Boolean auth;
 
