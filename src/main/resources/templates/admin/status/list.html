@@ -1,40 +1,44 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
-  <head>
-    <meta charset="UTF-8" th:remove="tag">
-  </head>
-  <body>
-    <div layout:fragment="content">
-      <h2>在籍情報一覧</h2>
-<!--	  <a th:href="@{/admin/status/edit/{id}(id={id})}">離席メモを更新する</a>-->
-	  <a th:href="@{/admin/message/}">伝言メモを確認する</a>
-	  
-      <table class="table table-striped mt-4">
-        <thead class="bg-primary text-white">
-          <tr>
-			<th scope="col" class="actions">伝言を残す</th>
-            <th>名前</th>
-            <th>状況</th>
-            <th>行き先</th>
-            <th>帰りの予定</th>
-			<th>メモ</th>
-            <th>最終更新日時</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="status: ${status}" th:object="${status}">
-			<td class="actions text-nowrap">
-              <a th:href="@{/admin/message/edit/{id}(id=*{id})}" class="btn btn-primary">伝言を残す</a>
-            </td>
-            <td th:text="*{user.name}"></td>
-            <td th:text="*{present}"></td>
-            <td th:text="*{destination}"></td>
-			<td th:text="*{reachTime}"></td>
-			<td th:text="*{memo}"></td>
-            <td th:text="*{#dates.format(modifiedAt, 'yyyy年MM月dd日HH時mm分ss秒')}"></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </body>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+
+<head>
+	<meta charset="UTF-8" th:remove="tag">
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<h2>在籍情報一覧</h2>
+		<a th:href="@{/admin/status/edit/{id}(id=*{id})}">離席メモを更新する</a>
+		<a th:href="@{/admin/message/}">伝言メモを確認する</a>
+
+		<table class="table table-striped mt-4">
+			<thead class="bg-primary text-white">
+				<tr>
+					<th scope="col" class="actions">伝言を残す</th>
+					<th>名前</th>
+					<th>状況</th>
+					<th>行き先</th>
+					<th>帰りの予定</th>
+					<th>メモ</th>
+					<th>最終更新日時</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="status: ${status}" th:object="${status}">
+					<td class="actions text-nowrap">
+						<a th:href="@{/admin/message/edit/{id}(id=*{id})}" class="btn btn-primary">伝言を残す</a>
+					</td>
+					<td th:text="*{userId}"></td>
+					<td th:text="*{present}"></td>
+					<td th:text="*{destination}"></td>
+					<td th:text="*{reachTime}"></td>
+					<td th:text="*{memo}"></td>
+					<td th:text="*{#dates.format(modifiedAt, 'yyyy年MM月dd日HH時mm分ss秒')}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+
 </html>

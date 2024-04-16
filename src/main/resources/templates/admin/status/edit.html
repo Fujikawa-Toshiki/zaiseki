@@ -1,29 +1,58 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
-  <head>
-    <meta charset="UTF-8" th:remove="tag">
-  </head>
-  <body>
-    <div layout:fragment="content">
-      <form th:action="@{/admin/status/update}" th:object="${status}" method="post">
-        <ul th:if="${#fields.hasErrors()}" class="alert alert-danger" role="alert">
-          <li th:each="err : ${#fields.errors('*')}">
-            <span th:text="${err}"></span>
-          </li>
-        </ul>
-        <h1 class="page-header">離席メモ更新</h1>
-          <table>
-			<tr>
-				<th>名前</th>
-				<td>
-<!--					${user.name}-->
-				</td>
-				<label for="name">名前</label>
-			</tr>
-          </table>
-          <input class="btn btn-primary" type="submit" value="更新">
-      	</div>
-      </form>
-    </div>
-  </body>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+
+<head>
+	<meta charset="UTF-8" th:remove="tag">
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<form th:action="@{/admin/status/edit/{id}(id=*{id})}" th:object="${status}" method="post">
+			<ul th:if="${#fields.hasErrors()}" class="alert alert-danger" role="alert">
+				<li th:each="err : ${#fields.errors('*')}">
+					<span th:text="${err}"></span>
+				</li>
+			</ul>
+			<h2>離席メモ更新</h2>
+			<table>
+				<tr>
+					<th>user_id</th>
+<!--					<td th:text="*{userId}"></td>-->
+<td><input type="text" id="userId" th:field="*{userId}"></td>
+				</tr>
+				<tr>
+					<th>名前</th>
+					<td th:text="${user.name}"></td>
+				</tr>
+				<tr>
+					<th>在席状況</th>
+					<td>
+						<label>
+							<input type="radio" th:field="*{present}" value="0" />在席
+							<input type="radio" th:field="*{present}" value="1" />外出
+							<input type="radio" th:field="*{present}" value="2" />会議中
+							<input type="radio" th:field="*{present}" value="3" />食事
+						</label>
+					</td>
+				</tr>
+				<tr>
+					<th>行き先</th>
+					<td><input type="text" id="destination" th:field="*{destination}"></td>
+				</tr>
+				<tr>
+					<th>戻り時刻</th>
+					<td><input type="text" id="reachTime" th:field="*{reachTime}"></td>
+				</tr>
+				<tr>
+					<th>メモ</th>
+					<td><input type="text" id="memo" th:field="*{memo}"></td>
+				</tr>
+			</table>
+			<input type="submit" value="更新">
+	</div>
+	</form>
+	</div>
+</body>
+
 </html>

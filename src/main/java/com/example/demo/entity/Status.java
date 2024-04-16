@@ -6,7 +6,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -30,9 +29,14 @@ public class Status extends AbstractEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@OneToOne
+//	@OneToOne
+//	@JoinColumn(name = "user_id")
+//	private User user;
+	
+	@Column(nullable = false)
 	@JoinColumn(name = "user_id")
-	private User user;
+	@NotNull(message = "ユーザIDは必須入力です")
+	private Integer userId;
 
 	@Column(nullable = false)
 	@NotNull(message = "在籍状況が未入力です")
@@ -47,5 +51,6 @@ public class Status extends AbstractEntity {
 
 	@Column(length = 255, nullable = false)
 	private String memo;
+	
 
 }

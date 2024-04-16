@@ -4,26 +4,29 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.common.FlashData;
+import com.example.demo.common.UserImpl;
 import com.example.demo.entity.Status;
 import com.example.demo.entity.User;
-import com.example.demo.service.BaseService;
+import com.example.demo.service.StatusService;
 import com.example.demo.service.UserService;
+
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/admin/status")
 public class StatusController {
 	@Autowired
-	BaseService<Status> statusService;
+	StatusService statusService;
 	
 	@Autowired
 	UserService userService;
@@ -32,11 +35,10 @@ public class StatusController {
 	 * 一覧表示
 	 */
 	@GetMapping(path = {"", "/"})
-	public String list(Model model, @AuthenticationPrincipal UserDetails user) {
+	public String list(Model model, @AuthenticationPrincipal UserImpl user) {
 		try {
-			// ログインユーザのuser_nameからStatus情報を取得
-			String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-			User loginUser = userService.findByUsername(userName);
+			// ログインユーザのStatus情報を取得
+			User loginUser = user.getUser();
 			Status myStatus = statusService.findByUserId(loginUser.getId());
 			
 			// 全件取得
@@ -53,11 +55,12 @@ public class StatusController {
 	 * 編集画面表示
 	 */
 	@GetMapping(value = "/edit/{id}")
-	public String edit(@PathVariable Integer id, Model model, RedirectAttributes ra) {
+	public String edit(@PathVariable Integer id, Model model, @AuthenticationPrincipal UserImpl user, RedirectAttributes ra) {
 		try {
+			User loginUser = user.getUser();
 			Status status = statusService.findById(id);
 			model.addAttribute("status", status);
-			
+			model.addAttribute("user", loginUser);
 		} catch (Exception e) {
 			FlashData flash = new FlashData().danger("該当データがありません");
 			ra.addFlashAttribute("flash", flash);
@@ -67,20 +70,24 @@ public class StatusController {
 	}
 	
 	/*
-	 * 編集画面表示
+	 * 更新
 	 */
-//	@GetMapping(value = "/edit/{id}")
-//	public String edit(@PathVariable Integer id, Model model, RedirectAttributes ra) {
-//		try {
-//			// 存在確認
-//			Status status = statusService.findById(id);
-//			model.addAttribute("status", status);
-//		} catch (Exception e) {
-//			FlashData flash = new FlashData().danger("該当データがありません");
-//			ra.addFlashAttribute("flash", flash);
-//			return "redirect:/admin/status";
-//		}
-//		return "admin/status/edit";
-//	}
+	@PostMapping(value = "/edit/{id}")
+	public String update(@PathVariable Integer id, @Valid Status status, BindingResult result, Model model, RedirectAttributes ra) {
+		FlashData flash;
+		try {
+			if (result.hasErrors()) {
+				return "admin/status/edit";
+			}
+			statusService.findById(id);
+			// 更新
+			statusService.save(status);
+			flash = new FlashData().success("更新しました");
+		} catch (Exception e) {
+			flash = new FlashData().danger("該当データがありません");
+		}
+		ra.addFlashAttribute("flash", flash);
+		return "redirect:/admin/status";
+	}
 
 }
