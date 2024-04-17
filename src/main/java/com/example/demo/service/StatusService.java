@@ -42,12 +42,6 @@ public class StatusService implements BaseService<Status> {
 		return dao.findByUserId(userId);
 	}
 
-	@Override
-	public Status findByUsername(String userName) throws DataNotFoundException {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
-	}
-	
 	public List<Status> getStatusAndUser() {
         return statusRepository.getStatusAndUser();
     }

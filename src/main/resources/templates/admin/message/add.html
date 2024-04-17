@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+
+<head>
+	<meta charset="UTF-8" th:remove="tag">
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<h2>伝言メモ作成</h2>
+		<form th:action="@{/admin/message/add}" th:object="${message}" method="post">
+			<table>
+				<!--			<input type="hidden" id="userId" th:field="*{user.id}">-->
+				<tr>
+					<th>宛先</th>
+					<td th:text="${toUser.name}"></td>
+				</tr>
+				<tr>
+					<th>相手先部門</th>
+					<td><input type="text" id="passSec" th:field="*{passSec}"></td>
+				</tr>
+				<tr>
+					<th>相手先電話</th>
+					<td><input type="text" id="passTel" th:field="*{passTel}"></td>
+				</tr>
+				<tr>
+					<th>相手先名前</th>
+					<td><input type="text" id="passName" th:field="*{passName}"></td>
+				</tr>
+				<tr>
+					<th>伝言区分</th>
+					<td>
+						<label>
+							<input type="radio" th:field="*{msec}" value="0" />電話
+							<input type="radio" th:field="*{msec}" value="1" />伝言
+							<input type="radio" th:field="*{msec}" value="2" />折り返し
+							<input type="radio" th:field="*{msec}" value="3" />来訪
+						</label>
+					</td>
+				</tr>
+				<tr>
+					<th>伝言</th>
+					<td><input type="text" id="message" th:field="*{message}"></td>
+				</tr>
+			</table>
+			<input type="submit" value="登録">
+		</form>
+	</div>
+</body>
+
+</html>

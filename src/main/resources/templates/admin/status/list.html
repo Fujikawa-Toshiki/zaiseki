@@ -27,7 +27,7 @@
 			<tbody>
 				<tr th:each="status: ${status}" th:object="${status}">
 					<td class="actions text-nowrap">
-						<a th:href="@{/admin/message/edit/{id}(id=*{id})}" class="btn btn-primary">伝言を残す</a>
+						<a th:href="@{/admin/message/add/{toUserId}(toUserId=*{user.id})}" class="btn btn-primary">伝言</a>
 					</td>
 					<td th:text="*{user.name}"></td>
 					<td th:if="*{present eq 0}">在席</td>

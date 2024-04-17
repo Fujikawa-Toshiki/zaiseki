@@ -8,8 +8,6 @@ public interface BaseService<T> {
 	public List<T> findAll();
 
 	public T findById(Integer id) throws DataNotFoundException;
-	
-	public T findByUsername(String userName) throws DataNotFoundException;
 
 	public void save(T t);
 

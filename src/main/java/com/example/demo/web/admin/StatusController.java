@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.demo.common.FlashData;
 import com.example.demo.common.CustomUser;
+import com.example.demo.common.FlashData;
 import com.example.demo.entity.Status;
 import com.example.demo.entity.User;
 import com.example.demo.service.StatusService;
