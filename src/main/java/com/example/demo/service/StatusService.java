@@ -8,11 +8,15 @@ import org.springframework.stereotype.Service;
 import com.example.demo.common.DataNotFoundException;
 import com.example.demo.dao.StatusDao;
 import com.example.demo.entity.Status;
+import com.example.demo.repository.StatusRepository;
 
 @Service
 public class StatusService implements BaseService<Status> {
 	@Autowired
 	private StatusDao dao;
+	
+	@Autowired
+    private StatusRepository statusRepository;
 
 	@Override
 	public List<Status> findAll() {
@@ -43,4 +47,8 @@ public class StatusService implements BaseService<Status> {
 		// TODO 自動生成されたメソッド・スタブ
 		return null;
 	}
+	
+	public List<Status> getStatusAndUser() {
+        return statusRepository.getStatusAndUser();
+    }
 }
