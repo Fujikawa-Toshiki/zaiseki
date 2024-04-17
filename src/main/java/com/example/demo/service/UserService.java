@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.common.CustomUser;
 import com.example.demo.common.DataNotFoundException;
 import com.example.demo.common.PasswordHasher;
 import com.example.demo.dao.UserDao;
@@ -70,11 +71,7 @@ public class UserService implements BaseService<User> {
 	 * SpringSecurity側の更新 
 	 */
 	private void updateSecurityContext(User user) {
-		UserDetails userDetails = org.springframework.security.core.userdetails.User.builder()
-				.username(user.getUsername())
-				.password(user.getPassword())
-				.roles("ADMIN")
-				.build();
+		UserDetails userDetails = new CustomUser(user.getUserName(), user.getPassword(), user);
 		SecurityContext context = SecurityContextHolder.getContext();
 		context.setAuthentication(new UsernamePasswordAuthenticationToken(
 				userDetails,

@@ -12,21 +12,15 @@ import com.example.demo.repository.UserRepository;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    @Autowired
-    private UserRepository userRepository;
+	@Autowired
+	private UserRepository userRepository;
 
-    @Override
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        User user = userRepository.findByUserName(userName);
-        if (user == null) {
-            throw new UsernameNotFoundException("User not found");
-        }
-//        return new org.springframework.security.core.userdetails.User(
-//                user.getUsername(),
-//                user.getPassword(),
-//                true, true, true, true,
-//                AuthorityUtils.createAuthorityList("ADMIN"));
-
-        return new UserImpl(user.getUserName(), user.getPassword(), user);
-    }
+	@Override
+	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+		User user = userRepository.findByUserName(userName);
+		if (user == null) {
+			throw new UsernameNotFoundException("User not found");
+		}
+		return new CustomUser(user.getUserName(), user.getPassword(), user);
+	}
 }
