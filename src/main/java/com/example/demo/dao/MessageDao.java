@@ -23,6 +23,11 @@ public class MessageDao implements BaseDao<Message> {
 	public Message findById(Integer id) throws DataNotFoundException {
 		return this.repository.findById(id).orElseThrow(() -> new DataNotFoundException());
 	}
+	
+	public List<Message> findByToUserId(Integer toUserId) {
+		System.out.println(toUserId);
+		return this.repository.findByToUserId(toUserId);
+	}
 
 	@Override
 	public void save(Message message) {

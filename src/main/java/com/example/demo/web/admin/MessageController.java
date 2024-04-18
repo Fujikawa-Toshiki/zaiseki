@@ -1,5 +1,7 @@
 package com.example.demo.web.admin;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -29,6 +31,26 @@ public class MessageController {
 	@Autowired
 	UserService userService;
 
+	/*
+	 * 一覧表示
+	 */
+	@GetMapping(path = {"", "/"})
+	public String list(Model model, @AuthenticationPrincipal CustomUser user) {
+		try {
+			// 自分宛てのメッセージを全件取得
+			User loginUser = user.getUser();
+			List<Message> messageList = messageService.findByToUserId(loginUser.getId());
+			// 宛先ユーザ
+//			User toUser = userService.findById(toUserId);
+//			message.setToUserId(toUser.getId());
+//			model.addAttribute("toUser", toUser);
+			model.addAttribute("messageList", messageList);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return "admin/message/list";
+	}
+	
 	/*
 	 * 伝言登録画面表示
 	 */

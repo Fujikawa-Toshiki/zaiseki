@@ -23,6 +23,10 @@ public class MessageService implements BaseService<Message> {
 	public Message findById(Integer id) throws DataNotFoundException {
 		return dao.findById(id);
 	}
+	
+	public List<Message> findByToUserId(Integer toUserId) {
+		return dao.findByToUserId(toUserId);
+	}
 
 	@Override
 	public void save(Message follow) {

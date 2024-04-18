@@ -49,10 +49,11 @@ public class Message extends AbstractEntity {
 
 	@Column(nullable = false)
 	@NotNull(message = "伝言区分が未入力です")
+//	@NotEmpty(groups = { Create.class, Update.class }, message = "伝言区分が未入力です")
 	private Integer msec;
 
 	@Column(length = 255)
-	private String message;
+	private String note;
 	
 //	@ManyToOne
 //	@JoinColumn(name = "from_user_id")

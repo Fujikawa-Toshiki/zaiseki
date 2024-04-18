@@ -33,7 +33,7 @@ CREATE TABLE message (
   pass_tel varchar(255) DEFAULT '' COMMENT '相手先電話',
   pass_name varchar(255) DEFAULT '' COMMENT '相手先名前',
   msec int(11) DEFAULT '0' COMMENT '伝言区分',
-  message varchar(255) DEFAULT '' COMMENT '伝言',
+  note varchar(255) DEFAULT '' COMMENT '伝言メモ',
   from_user_id int(11) NOT NULL COMMENT '受付ユーザID',
   modified_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最終更新時刻',
   created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '登録時刻',

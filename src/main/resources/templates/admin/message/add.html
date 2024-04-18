@@ -15,7 +15,7 @@
 				<input type="hidden" th:field="*{toUserId}">
 				<tr>
 					<th>宛先</th>
-					<td th:text="${toUser.name}"></td>
+<!--					<td th:text="${toUser.name}"></td>-->
 				</tr>
 				<tr>
 					<th>相手先部門</th>
@@ -42,7 +42,7 @@
 				</tr>
 				<tr>
 					<th>伝言</th>
-					<td><input type="text" id="message" th:field="*{message}"></td>
+					<td><input type="text" id="note" th:field="*{note}"></td>
 				</tr>
 			</table>
 			<input type="submit" value="登録">
