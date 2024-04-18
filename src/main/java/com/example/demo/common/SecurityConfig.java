@@ -22,7 +22,7 @@ public class SecurityConfig {
 	private UserDetailsService userDetailsService;
 
 	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		return
 			http.authorizeHttpRequests(authorize ->
 				authorize
@@ -47,13 +47,12 @@ public class SecurityConfig {
 				exceptions
 					.accessDeniedPage("/403")
 			)
-			.csrf()
-			.disable()
+			.csrf(csrf -> csrf.disable())
 			.build();
 	}
 
 	@Bean
-	public AuthenticationProvider authenticationProvider() {
+	AuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
 		authProvider.setUserDetailsService(userDetailsService);
 		authProvider.setPasswordEncoder(passwordEncoder());
@@ -61,7 +60,7 @@ public class SecurityConfig {
 	}
 
 	@Bean
-	public PasswordEncoder passwordEncoder() {
+	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 

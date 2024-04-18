@@ -11,7 +11,8 @@
 		<h2>伝言メモ作成</h2>
 		<form th:action="@{/admin/message/add}" th:object="${message}" method="post">
 			<table>
-				<!--			<input type="hidden" id="userId" th:field="*{user.id}">-->
+				<input type="hidden" th:field="*{fromUserId}">
+				<input type="hidden" th:field="*{toUserId}">
 				<tr>
 					<th>宛先</th>
 					<td th:text="${toUser.name}"></td>

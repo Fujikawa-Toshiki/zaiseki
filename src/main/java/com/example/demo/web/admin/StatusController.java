@@ -42,7 +42,6 @@ public class StatusController {
 			Status myStatus = statusService.findByUserId(loginUser.getId());
 			// Userテーブルを結合して全件取得
 			List<Status> status = statusService.getStatusAndUser();
-//			List<Status> status = statusService.findAll();
 			model.addAttribute("status", status);
 			model.addAttribute("id", myStatus.getId());
 		} catch (Exception e) {
