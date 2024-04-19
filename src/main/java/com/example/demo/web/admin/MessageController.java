@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.common.CustomUser;
+import com.example.demo.common.DataNotFoundException;
 import com.example.demo.common.FlashData;
 import com.example.demo.common.ValidationGroups.Create;
 import com.example.demo.entity.Message;
@@ -92,5 +93,43 @@ public class MessageController {
 		}
 		ra.addFlashAttribute("flash", flash);
 		return "redirect:/admin/status";
+	}
+	
+	/*
+	 * 伝言編集画面表示
+	 */
+	@GetMapping(value = "/edit/{id}")
+	public String edit(@PathVariable Integer id, Model model, RedirectAttributes ra) {
+		FlashData flash;
+		try {
+			Message message = messageService.findById(id);
+			User toUser = userService.findById(message.getToUserId());
+			model.addAttribute("message", message);
+			model.addAttribute("toUser", toUser);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			flash = new FlashData().danger("エラーが発生しました");
+		}
+		return "admin/message/edit";
+	}
+	
+	/*
+	 * 伝言削除
+	 */
+	@GetMapping(value = "/delete/{id}")
+	public String delete(@PathVariable Integer id, Model model, RedirectAttributes ra) {
+		FlashData flash;
+		try {
+			messageService.findById(id);
+			messageService.deleteById(id);
+			flash = new FlashData().success("伝言を削除しました");
+		} catch (DataNotFoundException e) {
+			flash = new FlashData().danger("該当データがありません");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			flash = new FlashData().danger("エラーが発生しました");
+		}
+		ra.addFlashAttribute("flash", flash);
+		return "redirect:/admin/message/";
 	}
 }

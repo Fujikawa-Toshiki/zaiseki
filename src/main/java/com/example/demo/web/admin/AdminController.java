@@ -19,7 +19,7 @@ public class AdminController {
 		// ダッシュボードで表示するリンク
 		Map<String, String> links = new LinkedHashMap<String, String>();
 		links.put("/admin/status","在籍情報一覧");
-//		links.put("/admin/message","伝言メモ");
+		links.put("/admin/message","伝言メモ確認");
 		links.put("/admin/user","ユーザ一覧");
 		model.addAttribute("links", links);
 		return "admin/admin/list";
