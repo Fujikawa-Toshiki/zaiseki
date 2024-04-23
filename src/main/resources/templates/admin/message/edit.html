@@ -10,44 +10,57 @@
 	<div layout:fragment="content">
 		<h2>伝言メモ編集</h2>
 		<form th:action="@{/admin/message/edit/{id}(id=*{id})}" th:object="${message}" method="post">
-			<table>
-				<input type="hidden" th:field="*{fromUserId}">
-				<input type="hidden" th:field="*{toUserId}">
-				<tr>
-					<th>宛先</th>
-					<td th:text="${toUser.name}"></td>
-				</tr>
-				<tr>
-					<th>相手先部門</th>
-					<td><input type="text" id="passSec" th:field="*{passSec}"></td>
-				</tr>
-				<tr>
-					<th>相手先電話</th>
-					<td><input type="text" id="passTel" th:field="*{passTel}"></td>
-				</tr>
-				<tr>
-					<th>相手先名前</th>
-					<td><input type="text" id="passName" th:field="*{passName}"></td>
-				</tr>
-				<tr>
-					<th>伝言区分</th>
-					<td>
-						<label>
-							<input type="radio" th:field="*{msec}" value="0" />電話
-							<input type="radio" th:field="*{msec}" value="1" />伝言
-							<input type="radio" th:field="*{msec}" value="2" />折り返し
-							<input type="radio" th:field="*{msec}" value="3" />来訪
-						</label>
-					</td>
-				</tr>
-				<tr>
-					<th>伝言</th>
-					<td><input type="text" id="note" th:field="*{note}"></td>
-				</tr>
-				<tr>
-					<td	colspan="2"><input type="submit" value="更新"></td>
-				</tr>
-			</table>
+			<ul th:if="${#fields.hasErrors()}" class="alert alert-danger" role="alert">
+				<li th:each="err : ${#fields.errors('*')}">
+					<span th:text="${err}"></span>
+				</li>
+			</ul>
+
+			<input type="hidden" th:field="*{fromUserId}">
+			<input type="hidden" th:field="*{toUserId}">
+
+			<label for="name" class="col-sm-2 col-form-label">宛先</label>
+			<label th:text="${toUser.name}"></label>
+
+			<div class="form-group row" th:classappend="${#fields.hasErrors('passSec')} ? error">
+				<label for="passSec" class="col-sm-2 col-form-label">相手先部門</label>
+				<div class="col-md-4">
+					<input class="form-control" type="text" id="passSec" th:field="*{passSec}">
+				</div>
+			</div>
+
+			<div class="form-group row" th:classappend="${#fields.hasErrors('passTel')} ? error">
+				<label for="passTel" class="col-sm-2 col-form-label">相手先電話</label>
+				<div class="col-md-4">
+					<input class="form-control" type="text" id="passTel" th:field="*{passTel}">
+				</div>
+			</div>
+
+			<div class="form-group row" th:classappend="${#fields.hasErrors('passName')} ? error">
+				<label for="passName" class="col-sm-2 col-form-label">相手先名前</label>
+				<div class="col-md-4">
+					<input class="form-control" type="text" id="passName" th:field="*{passName}">
+				</div>
+			</div>
+
+			<div class="form-group" th:classappend="${#fields.hasErrors('msec')} ? error">
+				<label for="msec" class="col-sm-2 col-form-label">伝言区分</label>
+				<input type="radio" th:field="*{msec}" value="0" />電話
+				<input type="radio" th:field="*{msec}" value="1" />伝言
+				<input type="radio" th:field="*{msec}" value="2" />折り返し
+				<input type="radio" th:field="*{msec}" value="3" />来訪
+			</div>
+
+			<div class="form-group row" th:classappend="${#fields.hasErrors('note')} ? error">
+				<label for="note" class="col-sm-2 col-form-label">伝言</label>
+				<div class="col-md-4">
+					<input class="form-control" type="text" id="note" th:field="*{note}">
+				</div>
+			</div>
+
+			<div>
+				<input class="btn btn-primary" type="submit" value="更新">
+			</div>
 		</form>
 	</div>
 </body>

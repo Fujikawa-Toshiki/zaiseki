@@ -1,20 +1,33 @@
-<nav layout:fragment="header" class="header navbar navbar-fixed-top">
-	<div id="header">
-		<h1>
+<nav layout:fragment="header" class="navbar navbar-expand-md navbar-light bg-light shadow-sm">
+	<div class="container-fluid col-sm-10">
+		<div class="navbar-header">
 			<a th:href="@{/admin/}" sec:authorize="authenticated">在席管理アプリ</a>
 			<a th:href="@{/}" sec:authorize="!authenticated">在席管理アプリ</a>
-		</h1>
+		</div>
 	</div>
-	<div id="nav">
-		<p sec:authorize="authenticated">
-			<span sec:authentication="name" class="me-1"></span>さん
-			<a th:href="@{/admin/}">ホーム</a>
-			<a th:href="@{/admin/user/edit}">ユーザ編集</a>
-			<a th:href="@{/admin/user/logout}">ログアウト</a>
-		</p>
-		<p sec:authorize="!authenticated">
-			<a th:href="@{/user/login}">ログイン</a>
-			<a th:href="@{/user/register}">新規ユーザ登録</a>
-		</p>
+	<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+		aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+		<ul sec:authorize="authenticated" class="navbar-nav ml-auto">
+			<li class="navbar-text mr-3"><span sec:authentication="name" class="me-1"></span>さん</li>
+			<li class="nav-item dropdown">
+				<a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">管理</a>
+				<ul class="dropdown-menu">
+					<li><a th:href="@{/admin/user/edit}" class="nav-link">ユーザ編集</a></li>
+					<li><a th:href="@{/admin/user/logout}" class="nav-link">ログアウト</a></li>
+				</ul>
+			</li>
+		</ul>
+		<ul sec:authorize="!authenticated" class="navbar-nav mr-auto">
+			<li class="nav-item dropdown">
+				<a th:href="@{/user/login}" class="nav-link">ログイン</a>
+			</li>
+			<li class="nav-item dropdown">
+				<a th:href="@{/user/register}" class="nav-link">新規ユーザ登録</a>
+			</li>
+		</ul>
 	</div>
 </nav>

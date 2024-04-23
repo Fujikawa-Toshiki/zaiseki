@@ -40,10 +40,11 @@ public class User extends AbstractEntity implements UserDetails {
 	private String userName;
 
 	@Column(length = 255, nullable = false)
-	@NotEmpty(groups = { Create.class }, message = "パスワードは必須項目です")
+	@NotEmpty(groups = { Create.class, Update.class }, message = "パスワードは必須項目です")
 	private String password;
 	
 	@Column(length = 255, nullable = false)
+	@NotEmpty(groups = { Create.class, Update.class }, message = "名前は必須項目です")
 	private String name;
 
 	@Transient

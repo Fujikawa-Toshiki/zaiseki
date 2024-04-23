@@ -8,48 +8,51 @@
 
 <body>
 	<div layout:fragment="content">
+		<h1 class="page-header">離席メモ更新</h1>
 		<form th:action="@{/admin/status/edit/{id}(id=*{id})}" th:object="${status}" method="post">
 			<ul th:if="${#fields.hasErrors()}" class="alert alert-danger" role="alert">
 				<li th:each="err : ${#fields.errors('*')}">
 					<span th:text="${err}"></span>
 				</li>
 			</ul>
-			<h2>離席メモ更新</h2>
-			<table>
-				<input type="hidden" id="userId" th:field="*{user.id}">
-				<tr>
-					<th>名前</th>
-					<td th:text="${user.name}"></td>
-				</tr>
-				<tr>
-					<th>在席状況</th>
-					<td>
-						<label>
-							<input type="radio" th:field="*{present}" value="0" />在席
-							<input type="radio" th:field="*{present}" value="1" />外出
-							<input type="radio" th:field="*{present}" value="2" />会議中
-							<input type="radio" th:field="*{present}" value="3" />食事
-						</label>
-					</td>
-				</tr>
-				<tr>
-					<th>行き先</th>
-					<td><input type="text" id="destination" th:field="*{destination}"></td>
-				</tr>
-				<tr>
-					<th>戻り時刻</th>
-					<td><input type="text" id="reachTime" th:field="*{reachTime}"></td>
-				</tr>
-				<tr>
-					<th>メモ</th>
-					<td><input type="text" id="memo" th:field="*{memo}"></td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<input type="submit" value="更新">
-					</td>
-				</tr>
-			</table>
+
+			<input type="hidden" id="userId" th:field="*{user.id}">
+
+			<label for="name" class="col-sm-2 col-form-label">名前</label>
+			<label th:text="${user.name}"></label>
+
+			<div class="form-group" th:classappend="${#fields.hasErrors('present')} ? error">
+				<label for="present" class="col-sm-2 col-form-label">在席状況</label>
+				<input type="radio" th:field="*{present}" value="0" />在席
+				<input type="radio" th:field="*{present}" value="1" />外出
+				<input type="radio" th:field="*{present}" value="2" />会議中
+				<input type="radio" th:field="*{present}" value="3" />食事
+			</div>
+
+			<div class="form-group row" th:classappend="${#fields.hasErrors('destination')} ? error">
+				<label for="destination" class="col-sm-2 col-form-label">行き先</label>
+				<div class="col-md-4">
+					<input class="form-control" type="text" id="destination" th:field="*{destination}">
+				</div>
+			</div>
+
+			<div class="form-group row" th:classappend="${#fields.hasErrors('reachTime')} ? error">
+				<label for="reachTime" class="col-sm-2 col-form-label">戻り時刻</label>
+				<div class="col-md-4">
+					<input class="form-control" type="text" id="reachTime" th:field="*{reachTime}">
+				</div>
+			</div>
+
+			<div class="form-group row" th:classappend="${#fields.hasErrors('memo')} ? error">
+				<label for="memo" class="col-sm-2 col-form-label">メモ</label>
+				<div class="col-md-4">
+					<input class="form-control" type="text" id="memo" th:field="*{memo}">
+				</div>
+			</div>
+
+			<div>
+				<input class="btn btn-primary" type="submit" value="更新">
+			</div>
 		</form>
 	</div>
 </body>

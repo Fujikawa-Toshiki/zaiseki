@@ -1,8 +1,5 @@
 package com.example.demo.entity;
 
-import com.example.demo.common.ValidationGroups.Create;
-import com.example.demo.common.ValidationGroups.Update;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -37,20 +34,16 @@ public class Status extends AbstractEntity {
 	@JoinColumn(name = "user_id")
 	private User user;
 
-//	@Column(nullable = false)
-//	@JoinColumn(name = "user_id")
-//	@NotNull(message = "ユーザIDは必須入力です")
-//	private Integer userId;
-
 	@Column(nullable = false)
 	@NotNull(message = "在籍状況が未入力です")
 	private Integer present;
 
 	@Column(length = 255, nullable = false)
-	@NotEmpty(groups = { Create.class, Update.class }, message = "行き先が未入力です")
+	@NotEmpty(message = "行き先は必須入力です")
 	private String destination;
 
 	@Column(length = 255, nullable = false)
+	@NotEmpty(message = "戻り時刻は必須入力です")
 	private String reachTime;
 
 	@Column(length = 255, nullable = false)

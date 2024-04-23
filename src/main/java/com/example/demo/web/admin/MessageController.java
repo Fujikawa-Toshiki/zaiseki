@@ -44,10 +44,6 @@ public class MessageController {
 			// 自分宛てのメッセージを全件取得
 			User loginUser = user.getUser();
 			List<Message> messageList = messageService.findByToUserId(loginUser.getId());
-			// 宛先ユーザ
-//			User toUser = userService.findById(toUserId);
-//			message.setToUserId(toUser.getId());
-//			model.addAttribute("toUser", toUser);
 			model.addAttribute("messageList", messageList);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -85,12 +81,16 @@ public class MessageController {
 		FlashData flash;
 		try {
 			if (result.hasErrors()) {
+				// 宛先ユーザ
+				User toUser = userService.findById(message.getToUserId());
+				message.setToUserId(toUser.getId());
+				model.addAttribute("toUser", toUser);
 				model.addAttribute("message", message);
 				return "/admin/message/add";
 			}
 			// 新規登録
 			messageService.save(message);
-			flash = new FlashData().success("新規作成しました");
+			flash = new FlashData().success("伝言メモを登録しました");
 		} catch (Exception e) {
 			flash = new FlashData().danger("処理中にエラーが発生しました");
 		}
@@ -103,15 +103,15 @@ public class MessageController {
 	 */
 	@GetMapping(value = "/edit/{id}")
 	public String edit(@PathVariable Integer id, Model model, RedirectAttributes ra) {
-		FlashData flash;
 		try {
 			Message message = messageService.findById(id);
 			User toUser = userService.findById(message.getToUserId());
 			model.addAttribute("message", message);
 			model.addAttribute("toUser", toUser);
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			flash = new FlashData().danger("エラーが発生しました");
+			FlashData flash = new FlashData().danger("該当データがありません");
+			ra.addFlashAttribute("flash", flash);
+			return "redirect:/admin/status";
 		}
 		return "admin/message/edit";
 	}
@@ -124,12 +124,14 @@ public class MessageController {
 		FlashData flash;
 		try {
 			if (result.hasErrors()) {
+				User toUser = userService.findById(message.getToUserId());
+				model.addAttribute("toUser", toUser);
 				return "admin/message/edit";
 			}
 			messageService.findById(id);
 			// 更新
 			messageService.save(message);
-			flash = new FlashData().success("更新しました");
+			flash = new FlashData().success("伝言を更新しました");
 		} catch (Exception e) {
 			flash = new FlashData().danger("該当データがありません");
 		}

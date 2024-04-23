@@ -25,15 +25,7 @@ public class UserController {
   public String index() {
     return "index/index";
   }
-  
-  	/*
-	 * 新規作成画面表示
-	 */
-//	@GetMapping(value = "/register")
-//	public String register() {
-//		return "user/register";
-//	}
-  
+
   	/*
 	 * 新規作成画面表示
 	 */
@@ -71,7 +63,7 @@ public class UserController {
 		ra.addFlashAttribute("flash", flash);
 		return "redirect:/user/login";
 	}
-	
+
 	/*
 	 * ログイン画面表示
 	 */
@@ -79,7 +71,4 @@ public class UserController {
 	public String loginForm(User user, Model model) {
 		return "user/login";
 	}
-
-
-
 }
