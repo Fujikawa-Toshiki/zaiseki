@@ -18,10 +18,13 @@ import com.example.demo.common.CustomUser;
 import com.example.demo.common.DataNotFoundException;
 import com.example.demo.common.FlashData;
 import com.example.demo.common.ValidationGroups.Create;
+import com.example.demo.common.ValidationGroups.Update;
 import com.example.demo.entity.Message;
 import com.example.demo.entity.User;
 import com.example.demo.service.MessageService;
 import com.example.demo.service.UserService;
+
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping(value = { "/admin/message" })
@@ -111,6 +114,27 @@ public class MessageController {
 			flash = new FlashData().danger("エラーが発生しました");
 		}
 		return "admin/message/edit";
+	}
+	
+	/*
+	 * 伝言更新
+	 */
+	@PostMapping(value = "/edit/{id}")
+	public String update(@Validated(Update.class) @PathVariable Integer id, @Valid Message message, BindingResult result, Model model, RedirectAttributes ra) {
+		FlashData flash;
+		try {
+			if (result.hasErrors()) {
+				return "admin/message/edit";
+			}
+			messageService.findById(id);
+			// 更新
+			messageService.save(message);
+			flash = new FlashData().success("更新しました");
+		} catch (Exception e) {
+			flash = new FlashData().danger("該当データがありません");
+		}
+		ra.addFlashAttribute("flash", flash);
+		return "redirect:/admin/message";
 	}
 	
 	/*

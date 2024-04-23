@@ -25,7 +25,6 @@ public class MessageDao implements BaseDao<Message> {
 	}
 	
 	public List<Message> findByToUserId(Integer toUserId) {
-		System.out.println(toUserId);
 		return this.repository.findByToUserId(toUserId);
 	}
 
