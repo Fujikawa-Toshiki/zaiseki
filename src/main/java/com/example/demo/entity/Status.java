@@ -8,7 +8,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -39,11 +38,11 @@ public class Status extends AbstractEntity {
 	private Integer present;
 
 	@Column(length = 255, nullable = false)
-	@NotEmpty(message = "行き先は必須入力です")
+	@NotNull(message = "行き先は必須入力です")
 	private String destination;
 
 	@Column(length = 255, nullable = false)
-	@NotEmpty(message = "戻り時刻は必須入力です")
+	@NotNull(message = "戻り時刻は必須入力です")
 	private String reachTime;
 
 	@Column(length = 255, nullable = false)

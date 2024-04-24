@@ -35,7 +35,7 @@ public class StatusController {
 	 * 一覧表示
 	 */
 	@GetMapping(path = {"", "/"})
-	public String list(Model model, @AuthenticationPrincipal CustomUser user) {
+	public String list(Model model, @AuthenticationPrincipal CustomUser user, RedirectAttributes ra) {
 		try {
 			// ログインユーザのStatus情報を取得
 			User loginUser = user.getUser();
@@ -45,7 +45,9 @@ public class StatusController {
 			model.addAttribute("status", status);
 			model.addAttribute("id", myStatus.getId());
 		} catch (Exception e) {
-			
+			System.out.println(e.getMessage());
+			FlashData flash = new FlashData().danger("処理中にエラーが発生しました");
+			ra.addFlashAttribute("flash", flash);
 		}
 			return "admin/status/list";
 	}
