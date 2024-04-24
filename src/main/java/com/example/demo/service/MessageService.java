@@ -38,4 +38,10 @@ public class MessageService implements BaseService<Message> {
 		dao.deleteById(id);
 	}
 
+	public void deleteSelectedMessages(List<Integer> selectedMessages) {
+        for (Integer id : selectedMessages) {
+        	deleteById(id);
+        }
+    }
+
 }

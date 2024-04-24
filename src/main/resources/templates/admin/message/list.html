@@ -13,6 +13,7 @@
 			<table class="table table-striped mt-4">
 				<thead class="bg-primary text-white">
 					<tr>
+						<th></th>
 						<th>メッセージID</th>
 						<th>相手先部門</th>
 						<th>相手先電話番号</th>
@@ -24,21 +25,24 @@
 				</thead>
 				<tbody>
 					<tr th:each="messageInfo: ${messageList}" th:object="${messageInfo}">
+						<td><input type="checkbox" name="selectedMessages" th:value="${messageInfo.id}"></td>
 						<td th:text="*{id}"></td>
 						<td th:text="*{passSec}"></td>
 						<td th:text="*{passTel}"></td>
 						<td th:text="*{passName}"></td>
-						<td th:text="*{msec}"></td>
+						<td th:if="*{msec eq 0}">電話</td>
+						<td th:if="*{msec eq 1}">伝言</td>
+						<td th:if="*{msec eq 2}">折り返し</td>
+						<td th:if="*{msec eq 3}">来訪</td>
 						<td th:text="*{note}"></td>
 						<td>
-							<a th:href="@{/admin/message/edit/{id}(id=*{id})}">編集</a>
-							<a th:href="@{/admin/message/delete/{id}(id=*{id})}">削除</a>
-							
+							<a th:href="@{/admin/message/edit/{id}(id=*{id})}" class="btn btn-primary">編集</a>
+							<a th:href="@{/admin/message/delete/{id}(id=*{id})}" class="btn btn-danger">削除</a>
 						</td>
 					</tr>
 				</tbody>
 			</table>
-			<input type="submit" value="更新">
+			<input type="submit" class="btn btn-danger" value="選択済みの伝言を削除">
 		</form>
 	</div>
 </body>

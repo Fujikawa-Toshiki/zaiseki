@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.common.CustomUser;
@@ -140,10 +141,10 @@ public class MessageController {
 	}
 	
 	/*
-	 * 伝言削除
+	 * 伝言削除(1件)
 	 */
 	@GetMapping(value = "/delete/{id}")
-	public String delete(@PathVariable Integer id, Model model, RedirectAttributes ra) {
+	public String deleteById(@PathVariable Integer id, @RequestParam(name = "selectedMessages", required = false) List<Integer> selectedMessages, Model model, RedirectAttributes ra) {
 		FlashData flash;
 		try {
 			messageService.findById(id);
@@ -151,6 +152,32 @@ public class MessageController {
 			flash = new FlashData().success("伝言を削除しました");
 		} catch (DataNotFoundException e) {
 			flash = new FlashData().danger("該当データがありません");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			flash = new FlashData().danger("エラーが発生しました");
+		}
+		ra.addFlashAttribute("flash", flash);
+		return "redirect:/admin/message/";
+	}
+	
+	/*
+	 * 伝言をまとめて削除
+	 */
+	@PostMapping(value = "/delete")
+	public String delete(@RequestParam(name = "selectedMessages", required = false) List<Integer> selectedMessages, Model model, @AuthenticationPrincipal CustomUser user, RedirectAttributes ra) {
+		FlashData flash;
+		try {
+			if (selectedMessages == null || selectedMessages.isEmpty()) {
+				flash = new FlashData().danger("伝言が選択してください");
+				model.addAttribute("flash", flash);
+				// 自分宛てのメッセージを全件取得
+				User loginUser = user.getUser();
+				List<Message> messageList = messageService.findByToUserId(loginUser.getId());
+				model.addAttribute("messageList", messageList);
+				return "/admin/message/list";
+			}
+			messageService.deleteSelectedMessages(selectedMessages);
+			flash = new FlashData().success("伝言を削除しました");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			flash = new FlashData().danger("エラーが発生しました");
