@@ -13,7 +13,6 @@ public interface StatusRepository extends JpaRepository<Status, Integer>{
 	@Query(value = "select s.*, u.name as name "
 	        + "from status s "
 	        + "left join user u on u.id = s.user_id "
-//	        + "where u.user_name = ?1 "
 	        + "order by s.id ",
 	        nativeQuery = true)
 	List<Status> getStatusAndUser();
