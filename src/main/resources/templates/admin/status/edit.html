@@ -8,7 +8,7 @@
 
 <body>
 	<div layout:fragment="content">
-		<h1 class="page-header">離席メモ更新</h1>
+		<h2 class="page-header">離席メモ更新</h2>
 		<form th:action="@{/admin/status/edit/{id}(id=*{id})}" th:object="${status}" method="post">
 			<ul th:if="${#fields.hasErrors()}" class="alert alert-danger" role="alert">
 				<li th:each="err : ${#fields.errors('*')}">

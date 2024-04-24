@@ -1,14 +1,35 @@
 <nav layout:fragment="header" class="navbar navbar-expand-md navbar-light bg-light shadow-sm">
-	<div class="container-fluid col-sm-10">
+	<div class="container-fluid col-sm-8">
 		<div class="navbar-header">
-			<a th:href="@{/admin/}" sec:authorize="authenticated">在席管理アプリ</a>
-			<a th:href="@{/}" sec:authorize="!authenticated">在席管理アプリ</a>
+			<a th:href="@{/admin/}" class="navbar-brand" sec:authorize="authenticated">在席管理アプリ</a>
+			<a th:href="@{/}" class="navbar-brand" sec:authorize="!authenticated">在席管理アプリ</a>
 		</div>
 	</div>
 	<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 		aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 	</button>
+
+	<ul sec:authorize="authenticated" class="navbar-nav mr-auto">
+		<li class="nav-item dropdown">
+			<a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">在席情報</a>
+			<ul class="dropdown-menu">
+				<li><a th:href="@{/admin/status}" class="nav-link">一覧</a></li>
+			</ul>
+		</li>
+		<li class="nav-item dropdown">
+			<a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">伝言</a>
+			<ul class="dropdown-menu">
+				<li><a th:href="@{/admin/message}" class="nav-link">伝言メモ確認</a></li>
+			</ul>
+		</li>
+		<li class="nav-item dropdown">
+			<a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">ユーザ</a>
+			<ul class="dropdown-menu">
+				<li><a th:href="@{/admin/user}" class="nav-link">一覧</a></li>
+			</ul>
+		</li>
+	</ul>
 
 	<div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
 		<ul sec:authorize="authenticated" class="navbar-nav ml-auto">
@@ -17,6 +38,7 @@
 				<a href="javascript:void(0)" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">管理</a>
 				<ul class="dropdown-menu">
 					<li><a th:href="@{/admin/user/edit}" class="nav-link">ユーザ編集</a></li>
+					<li><a th:href="@{/user/register}" class="nav-link">ユーザー登録登録</a></li>
 					<li><a th:href="@{/admin/user/logout}" class="nav-link">ログアウト</a></li>
 				</ul>
 			</li>
