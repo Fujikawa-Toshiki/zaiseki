@@ -1,8 +1,7 @@
 <nav layout:fragment="header" class="navbar navbar-expand-md navbar-light bg-light shadow-sm">
 	<div class="container-fluid col-sm-8">
 		<div class="navbar-header">
-			<a th:href="@{/admin/}" class="navbar-brand" sec:authorize="authenticated">在席管理アプリ</a>
-			<a th:href="@{/}" class="navbar-brand" sec:authorize="!authenticated">在席管理アプリ</a>
+			<a th:href="@{/admin}" class="navbar-brand">在席管理アプリ</a>
 		</div>
 	</div>
 	<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
