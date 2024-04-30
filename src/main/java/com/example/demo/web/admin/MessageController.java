@@ -168,7 +168,7 @@ public class MessageController {
 		FlashData flash;
 		try {
 			if (selectedMessages == null || selectedMessages.isEmpty()) {
-				flash = new FlashData().danger("伝言が選択してください");
+				flash = new FlashData().danger("伝言を選択してください");
 				model.addAttribute("flash", flash);
 				// 自分宛てのメッセージを全件取得
 				User loginUser = user.getUser();
