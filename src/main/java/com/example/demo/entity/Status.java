@@ -34,7 +34,7 @@ public class Status extends AbstractEntity {
 	private User user;
 
 	@Column(nullable = false)
-	@NotNull(message = "在籍状況が未入力です")
+	@NotNull(message = "在席状況が未入力です")
 	private Integer present;
 
 	@Column(length = 255, nullable = false)
